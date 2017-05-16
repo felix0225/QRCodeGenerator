@@ -11,6 +11,8 @@
     <form id="form1" runat="server">
     <div>
         <asp:Image ID="Image1" runat="server" />
+        <br/>
+        <asp:Image ID="Image2" runat="server" />
     </div>
     </form>
 </body>

@@ -76,6 +76,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="CreateQRCode.ashx" />
+    <Content Include="CreateBarCode.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -88,6 +89,9 @@
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateBarCode.ashx.cs">
+      <DependentUpon>CreateBarCode.ashx</DependentUpon>
+    </Compile>
     <Compile Include="CreateQRCode.ashx.cs">
       <DependentUpon>CreateQRCode.ashx</DependentUpon>
     </Compile>

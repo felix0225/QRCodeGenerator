@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Web;
 using System.IO;
+using System.Web;
 using ZXing;
-using ZXing.QrCode;
-using ZXing.QrCode.Internal;
+using ZXing.OneD;
 
 namespace QRCode
 {
     /// <summary>
-    /// CreateQRCode 的摘要描述
+    /// CreateBarCode 的摘要描述
     /// </summary>
-    public class CreateQRCode : IHttpHandler
+    public class CreateBarCode : IHttpHandler
     {
 
         public void ProcessRequest(HttpContext context)
         {
             var strTxt = context.Request["txt"] ?? string.Empty;
             var strFName = context.Request["fn"] ?? Guid.NewGuid().ToString();
-            var strW = context.Request["w"] ?? "150";   //寬
-            var strH = context.Request["h"] ?? "150";   //高
+            var strW = context.Request["w"] ?? "250";   //寬
+            var strH = context.Request["h"] ?? "100";   //高
             var strBg = context.Request["bg"] ?? "FFFFFF";  //背景色
             var strFg = context.Request["fg"] ?? "000000";  //文字顏色
+            var pureCode = context.Request["pc"] ?? "false";  //文字顏色
 
             strBg = "#" + strBg;
             strFg = "#" + strFg;
@@ -29,16 +29,13 @@ namespace QRCode
 
             var writer = new BarcodeWriter
             {
-                Format = BarcodeFormat.QR_CODE,
+                Format = BarcodeFormat.CODE_128,
                 Renderer = new ZXing.Rendering.BitmapRenderer { Background = System.Drawing.ColorTranslator.FromHtml(strBg), Foreground = System.Drawing.ColorTranslator.FromHtml(strFg) },
-                Options = new QrCodeEncodingOptions
+                Options = new Code128EncodingOptions
                 {
                     Height = int.Parse(strH),
                     Width = int.Parse(strW),
-                    DisableECI = true,
-                    CharacterSet = "UTF-8",
-                    ErrorCorrection = ErrorCorrectionLevel.H,
-                    Margin = 1
+                    PureBarcode = Convert.ToBoolean(pureCode)  //不顯示文字
                 }
             };
 
