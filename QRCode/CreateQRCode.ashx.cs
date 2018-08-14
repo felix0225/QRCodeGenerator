@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Web;
 using System.IO;
 using ZXing;
@@ -43,20 +44,30 @@ namespace QRCode
             };
 
             var mBitmap = writer.Write(strTxt);
+
+            //加入Logo
+            var imagePath = HttpContext.Current.Server.MapPath("~/") + @"\logo.jpg";
+            var overlay = new Bitmap(imagePath);
+            var deltaHeigth = mBitmap.Height - overlay.Height;
+            var deltaWidth = mBitmap.Width - overlay.Width;
+            var g = Graphics.FromImage(mBitmap);
+            g.DrawImage(overlay, new Point(deltaWidth / 2, deltaHeigth / 2));
+
+
             var ms = new MemoryStream();
-            mBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg); //JPG、GIF、PNG等均可  
+            mBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png); //JPG、GIF、PNG等均可  
 
             var buff = ms.ToArray();
 
             try
             {
-                var fileName = strFName + ".jpg";
+                var fileName = strFName + ".png";
 
                 HttpContext.Current.Response.Clear();
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Charset = "utf-8";
                 HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
-                HttpContext.Current.Response.ContentType = "image/jpeg"; //二進位方式
+                HttpContext.Current.Response.ContentType = "image/png"; //二進位方式
 
                 //設定標頭檔資訊
                 HttpContext.Current.Response.AddHeader("Content-Disposition", "inline;  filename=" + HttpUtility.UrlEncode(fileName));

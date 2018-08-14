@@ -7,9 +7,9 @@ namespace QRCode
         protected void Page_Load(object sender, EventArgs e)
         {
             const string txt = "https://github.com/micjahn/ZXing.Net";
-            Image1.ImageUrl = $"CreateQRCode.ashx?txt={txt}";
+            Image1.ImageUrl = $"CreateQRCode.ashx?txt={txt}&w=458&h=458";
 
-            string bartxt = "0516 2017 0946 0011";
+            var bartxt = "2017051609460011";
             Image2.ImageUrl = $"CreateBarCode.ashx?txt={bartxt}";
         }
     }

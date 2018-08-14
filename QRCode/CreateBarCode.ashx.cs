@@ -35,7 +35,8 @@ namespace QRCode
                 {
                     Height = int.Parse(strH),
                     Width = int.Parse(strW),
-                    PureBarcode = Convert.ToBoolean(pureCode)  //不顯示文字
+                    Margin = 4,                                 //去白邊
+                    PureBarcode = Convert.ToBoolean(pureCode)   //是否不顯示文字
                 }
             };
 
