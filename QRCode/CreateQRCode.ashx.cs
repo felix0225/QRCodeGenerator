@@ -53,7 +53,6 @@ namespace QRCode
             var g = Graphics.FromImage(mBitmap);
             g.DrawImage(overlay, new Point(deltaWidth / 2, deltaHeigth / 2));
 
-
             var ms = new MemoryStream();
             mBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png); //JPG、GIF、PNG等均可  
 
